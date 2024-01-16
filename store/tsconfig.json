@@ -1,0 +1,17 @@
+{
+  "extends": ["../../tsconfig.json"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./lib/*"],
+    }
+  },
+  "include": [
+    "lib/**/*.ts",
+    "lib/**/*.d.ts",
+    "lib/**/*.tsx",
+    "lib/**/*.vue",
+    "vite.config.ts"
+  ],
+  "exclude": ["node_modules/"]
+}

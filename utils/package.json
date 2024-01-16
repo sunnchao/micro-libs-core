@@ -1,0 +1,32 @@
+{
+  "name": "@shared/utils1",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "types": "dist/lib/index.d.ts",
+  "module": "dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/lib/index.d.ts"
+    },
+    "./lib/env": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/lib/env.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "vite build --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {},
+  "peerDependencies": {
+    "@shared/types": "workspace: *"
+  }
+}

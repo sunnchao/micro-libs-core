@@ -1,0 +1,19 @@
+{
+  "extends": ["../../tsconfig.json"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "moduleResolution": "Bundler",
+    "paths": {
+      "@/*": ["./lib/*"],
+      "@root/*": ["../../*"]
+    }
+  },
+  "include": [
+    "lib/**/*.ts",
+    "lib/**/*.d.ts",
+    "lib/**/*.tsx",
+    "lib/**/*.vue",
+    "vite.config.ts"
+  ],
+  "exclude": ["node_modules/"]
+}
