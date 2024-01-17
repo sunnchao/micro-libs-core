@@ -9,12 +9,10 @@ export default () => {
     build: {
       emptyOutDir: true,
       lib: {
-        entry: 'lib/index.ts',
+        entry: 'index.ts',
         name: pkg.name,
         formats: ['es', 'cjs'],
-        fileName: (format) => {
-          return `index.${format}.js`;
-        },
+        fileName: (format) => `index.${format}.js`,
       },
       rollupOptions: {
         external: ['vue'],
@@ -22,13 +20,15 @@ export default () => {
           globals: {
             vue: 'Vue',
           },
+          dir: 'dist'
         },
       },
     },
     plugins: [
       dts({
         outDir: 'dist',
-        include: ['lib/**/*.{ts,tsx}'],
+        include: ['./**/*.{ts,tsx}'],
+        exclude: ['node_modules/**', 'dist/**'],
       }),
     ],
   });
