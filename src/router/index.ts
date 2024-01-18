@@ -20,5 +20,5 @@ export const getRouter = (options: RouterOptions): Router => {
   });
 };
 
-export { useBeforeEach } from './beforeEach';
-export { useAfterEach } from './afterEach';
+export { useBeforeEach } from './beforeEach/index.js';
+export { useAfterEach } from './afterEach/index.js';

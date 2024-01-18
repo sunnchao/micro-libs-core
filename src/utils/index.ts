@@ -1,4 +1,4 @@
-import { Recordable, ViteEnv } from '../types';
+import { Recordable, ViteEnv } from './types';
 /**
  * 读取环境变量
  * @param envConf 环境变量配置

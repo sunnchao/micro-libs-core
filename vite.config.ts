@@ -2,33 +2,35 @@
 // 导出 dts
 import { defineConfig } from 'vite';
 import dts from 'vite-plugin-dts';
-import pkg from './package.json';
+import { join } from 'node:path';
 
 export default () => {
   return defineConfig({
     build: {
       emptyOutDir: true,
       lib: {
-        entry: 'index.ts',
-        name: pkg.name,
+        entry: join(process.cwd(), 'src', 'index.ts'),
+        // name: pkg.name,
         formats: ['es', 'cjs'],
-        fileName: (format) => `index.${format}.js`,
+        fileName: (format, fileName) => `${fileName}.${format}.js`,
       },
       rollupOptions: {
         external: ['vue'],
         output: {
-          globals: {
-            vue: 'Vue',
+          globals(name) {
+            return name.toUpperCase();
           },
-          dir: 'dist'
+          dir: 'dist',
+          exports: 'named',
         },
       },
+      // sourcemap: true,
     },
     plugins: [
       dts({
         outDir: 'dist',
-        include: ['./**/*.{ts,tsx}'],
-        exclude: ['node_modules/**', 'dist/**'],
+        include: ['./src/**/*.{ts,tsx}'],
+        exclude: ['node_modules', 'dist/**'],
       }),
     ],
   });

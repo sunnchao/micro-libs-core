@@ -1,28 +1,31 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
+    // "module": "ESNext",
+    "moduleResolution": "NodeNext",
     "strict": true,
-    "noLib": false,
+//    "noLib": false,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": false,
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@types/*": ["./types/*"]
+      "@types/*": ["./src/types/*"]
     },
     "noImplicitAny": false,
     "skipLibCheck": true,
     "removeComments": true,
-    "composite": true
+    "esModuleInterop": true,
+    "outDir": "./dist",
+    "declaration": true
   },
   "include": [
-    "./utils/**/*",
-    "./router/**/*",
-    "./types/**/*",
+    "./src/utils/**/*",
+    "./src/router/**/*",
+    "./src/types/**/*",
     "./node_modules/@types/**/*",
+    "package.json"
   ],
-  "exclude": ["node_modules/"]
+  "exclude": ["node_modules", "dist"]
 }
