@@ -1,6 +1,7 @@
 export * from './global';
 export * from './module';
 export * from './vue';
+export * from './env';
 
 declare interface Fn<T = any, R = T> {
   (...arg: T[]): R;

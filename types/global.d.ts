@@ -1,25 +1,5 @@
 export {};
 
-// declare global {
-// declare global {
-export type Recordable<T = any> = Record<string, T>;
-
-export interface ViteEnv {
-  BASE_URL: string;
-  VITE_APP_PORT: number;
-  VITE_APP_BASE_URL: string;
-  VITE_APP_NAME: string;
-  VITE_PROXY: [string, string][];
-}
-// }
-
-declare module 'vite' {
-  interface ImportMeta {
-    // 是可选的
-    env?: ViteEnv;
-  }
-}
-
 declare const __APP_INFO__: {
   pkg: {
     name: string;
@@ -29,11 +9,6 @@ declare const __APP_INFO__: {
   };
   lastBuildTime: string;
 };
-// declare interface Window {
-//   // Global vue app instance
-//   __APP__: App<Element>;
-// }
-
 export type Writable<T> = {
   -readonly [P in keyof T]: T[P];
 };

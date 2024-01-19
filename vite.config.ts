@@ -7,21 +7,56 @@ import { join } from 'node:path';
 export default () => {
   return defineConfig({
     build: {
-      emptyOutDir: true,
+      // emptyOutDir: true,
       lib: {
         entry: join(process.cwd(), 'src', 'index.ts'),
         // name: pkg.name,
-        formats: ['es', 'cjs'],
-        fileName: (format, fileName) => `${fileName}.${format}.js`,
+        // formats: ['es', 'cjs'],
+        // fileName: (format, fileName) => {
+        //   console.log(fileName, format);
+        //   return `${fileName}.${format}.js`
+        // },
       },
       rollupOptions: {
         external: ['vue'],
-        output: {
-          globals(name) {
-            return name.toUpperCase();
+        output: [
+          {
+            globals(name) {
+              return name.toUpperCase();
+            },
+            dir: 'dist',
+            format: 'esm',
+            entryFileNames: (name) => {
+              return `${name.name}.esm.js`;
+            },
           },
-          dir: 'dist',
-          exports: 'named',
+          {
+            globals(name) {
+              return name.toUpperCase();
+            },
+            dir: 'dist',
+            exports: 'named',
+            name: 'block-lib',
+            format: 'umd',
+            entryFileNames: (name) => {
+              return `${name.name}.umd.js`;
+            },
+          },
+          {
+            // cjs
+            globals(name) {
+              return name.toUpperCase();
+            },
+            dir: 'dist',
+            format: 'cjs',
+            exports: 'named',
+            entryFileNames: (name) => {
+              return `${name.name}.cjs.js`;
+            },
+          },
+        ],
+        input: {
+          index: join(process.cwd(), 'src', 'index.ts'),
         },
       },
       // sourcemap: true,
