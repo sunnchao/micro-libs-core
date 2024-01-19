@@ -33,7 +33,8 @@
   "files": [
     "dist/**/*",
     "types/**/*",
-    "package.json"
+    "package.json",
+    "tsconfig.json"
   ],
   "dependencies": {
     "vue-router": "^4.2.5"

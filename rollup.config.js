@@ -10,7 +10,7 @@ export default {
   watch: {
     include: 'src/**',
   },
-  external: ['vue', 'vite'],
+  external: ['vue', 'vite', 'vue-router'],
   input: 'src/index.ts',
   output: [
     {
@@ -19,6 +19,8 @@ export default {
       file: pkg.module,
       globals: {
         vue: 'Vue',
+        vite: 'vite',
+        'vue-router': 'VueRouter',
       },
     },
     {
@@ -29,6 +31,8 @@ export default {
       file: pkg.main,
       globals: {
         vue: 'Vue',
+        vite: 'vite',
+        'vue-router': 'VueRouter',
       },
       entryFileNames: (chunkInfo) => `${chunkInfo.fileName.replace(/\.js$/, '')}`,
     },
@@ -42,7 +46,14 @@ export default {
   ],
   plugins: [
     json(),
-    resolve(),
+    resolve({
+      customResolveOptions: {
+        packageFilter(pkg) {
+          pkg.exports = pkg.exports || pkg.main;
+          return pkg;
+        },
+      },
+    }),
     commonjs(),
     typescript({
       useTsconfigDeclarationDir: true,

@@ -18,7 +18,9 @@
     "removeComments": true,
     "esModuleInterop": true,
     "outDir": "./dist",
-    "declaration": true
+    "declaration": true,
+    "verbatimModuleSyntax": true,
+    "resolvePackageJsonImports": true
   },
   "include": [
     "./src/utils/**/*",

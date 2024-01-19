@@ -1,6 +1,5 @@
-export * from 'vue-router';
-import { createRouter as _createRouter, createWebHashHistory, RouterOptions } from 'vue-router';
-import type { Router } from 'vue-router';
+import { createRouter as _createRouter, createWebHashHistory } from 'vue-router';
+import type { Router, RouterOptions } from 'vue-router';
 
 export const getRouter = (options: RouterOptions): Router => {
   const {
@@ -22,3 +21,4 @@ export const getRouter = (options: RouterOptions): Router => {
 
 export { useBeforeEach } from './beforeEach/index.js';
 export { useAfterEach } from './afterEach/index.js';
+export * from 'vue-router';
