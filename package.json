@@ -1,6 +1,6 @@
 {
   "name": "block-libs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "./dist/index.umd.js",
   "type": "module",
   "module": "./dist/index.esm.js",
