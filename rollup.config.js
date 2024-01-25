@@ -20,12 +20,26 @@ export default {
   output: [
     {
       format: 'esm',
-      dir: 'dist/esm',
+      dir: 'dist',
       // file: pkg.module,
       globals: {
         vue: 'Vue',
         vite: 'Vite',
         'vue-router': 'VueRouter',
+      },
+      // 目录
+      entryFileNames: (chunkInfo) => {
+        // 使用 chunkInfo.name 来决定不同入口点的输出文件名
+        switch (chunkInfo.name) {
+          case 'index':
+            return 'index.js';
+          case 'utils':
+            return 'utils/utils.js';
+          case 'router':
+            return 'router/router.js';
+          default:
+            return '[name].js'; // 默认情况
+        }
       },
     },
     // {
@@ -41,13 +55,13 @@ export default {
     resolve(),
     commonjs(),
     typescript({
-      useTsconfigDeclarationDir: true,
-      tsconfigOverride: {
-        compilerOptions: {
-          declaration: true,
-          declarationDir: 'dist/types',
-        },
-      },
+      // useTsconfigDeclarationDir: true,
+      // tsconfigOverride: {
+      //   compilerOptions: {
+      //     declaration: true,
+      //     declarationDir: 'dist/types',
+      //   },
+      // },
     }),
     terser({
       ecma: 6,

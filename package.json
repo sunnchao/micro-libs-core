@@ -1,9 +1,10 @@
 {
   "name": "block-libs",
   "version": "1.0.5",
-  "main": "./dist/esm/index.js",
+  "main": "./dist/index.js",
   "type": "module",
-  "module": "./dist/esm/index.js",
+  "module": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "scripts": {
     "dev": "rollup -c -w",
     "build": "vite build"
@@ -35,22 +36,28 @@
     "types/**/*",
     "package.json"
   ],
+  "sideEffects": [
+    "*.vue",
+    "*.md",
+    "dist/**/*"
+  ],
   "dependencies": {
     "vue-router": "^4.2.5"
   },
   "description": "",
   "exports": {
     "./router": {
-      "import": "./dist/esm/router.js",
-      "types": "./dist/types/router/index.d.ts"
+      "import": "./dist/router/index.js",
+      "types": "./dist/router/index.d.ts"
     },
+
     "./utils": {
-      "import": "./dist/esm/utils.js",
-      "types": "./dist/types/utils/index.d.ts"
+      "import": "./dist/utils/index.js",
+      "types": "./dist/utils/index.d.ts"
     },
     ".": {
-      "import": "./dist/esm/index.js",
-      "types": "./dist/types/index.d.ts"
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
     },
     "./package.json": "./package.json"
   }
