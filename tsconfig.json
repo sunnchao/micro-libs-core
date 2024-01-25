@@ -2,14 +2,14 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     "strict": true,
-//    "noLib": false,
+    "lib": ["DOM", "ESNext"],
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "strictFunctionTypes": false,
     "jsx": "preserve",
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "/#/types/*": ["src/types/*"]
     },
@@ -19,8 +19,7 @@
     "esModuleInterop": true,
     "outDir": "./dist",
     "declaration": true,
-    "verbatimModuleSyntax": true,
-    "resolvePackageJsonImports": true
+    "resolveJsonModule": true,
   },
   "include": [
     "./src/utils/**/*",

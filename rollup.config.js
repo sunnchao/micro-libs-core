@@ -1,9 +1,10 @@
 // import { RollupOptions } from 'rollup';
-import resolve from 'rollup-plugin-node-resolve';
-import commonjs from 'rollup-plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import terser from '@rollup/plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
-import json from 'rollup-plugin-json';
-import { terser } from 'rollup-plugin-terser';
+import del from 'rollup-plugin-delete'
 import pkg from './package.json' assert { type: 'json' };
 
 export default {
@@ -11,56 +12,40 @@ export default {
     include: 'src/**',
   },
   external: ['vue', 'vite', 'vue-router'],
-  input: 'src/index.ts',
+  input: {
+    index: 'src/index.ts',
+    utils: 'src/utils/index.ts',
+    router: 'src/router/index.ts',
+  },
   output: [
     {
       format: 'esm',
-      // dir: 'dist/esm',
-      file: pkg.module,
+      dir: 'dist/esm',
+      // file: pkg.module,
       globals: {
         vue: 'Vue',
-        vite: 'vite',
+        vite: 'Vite',
         'vue-router': 'VueRouter',
       },
-    },
-    {
-      format: 'umd',
-      exports: 'named',
-      name: 'block-libs',
-      // dir: 'dist/umd',
-      file: pkg.main,
-      globals: {
-        vue: 'Vue',
-        vite: 'vite',
-        'vue-router': 'VueRouter',
-      },
-      entryFileNames: (chunkInfo) => `${chunkInfo.fileName.replace(/\.js$/, '')}`,
     },
     // {
-    //   format: 'cjs',
-    //   dir: 'dist/cjs',
-    //   globals: {
-    //     vue: 'Vue',
-    //   },
+    //   format: 'umd',
+    //   exports: 'named',
+    //   name: 'block-libs',
+    //   dir: 'dist',
     // },
   ],
   plugins: [
+    del({ targets: 'dist/*' }),
     json(),
-    resolve({
-      customResolveOptions: {
-        packageFilter(pkg) {
-          pkg.exports = pkg.exports || pkg.main;
-          return pkg;
-        },
-      },
-    }),
+    resolve(),
     commonjs(),
     typescript({
       useTsconfigDeclarationDir: true,
       tsconfigOverride: {
         compilerOptions: {
           declaration: true,
-          declarationDir: 'dist',
+          declarationDir: 'dist/types',
         },
       },
     }),
