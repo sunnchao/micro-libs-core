@@ -1,6 +1,6 @@
 {
   "name": "block-libs",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "./dist/index.js",
   "type": "module",
   "module": "./dist/index.js",
@@ -50,7 +50,6 @@
       "import": "./dist/router/index.js",
       "types": "./dist/router/index.d.ts"
     },
-
     "./utils": {
       "import": "./dist/utils/index.js",
       "types": "./dist/utils/index.d.ts"
