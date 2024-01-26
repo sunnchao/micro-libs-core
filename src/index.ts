@@ -1,3 +1,7 @@
-// export * from './utils';
-// export * from './router';
-export default {};
+import * as utils from './utils';
+import * as router from './router';
+
+export default {
+  utils,
+  router,
+};
