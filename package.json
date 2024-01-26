@@ -32,6 +32,7 @@
   "files": [
     "dist/**/*",
     "types/**/*",
+    "block-libs.d.ts",
     "package.json"
   ],
   "sideEffects": [
