@@ -8,7 +8,7 @@ pnpm-lock.yaml
 .env.*.production.local
 
 dist
-build
+# build
 **/*/out
 
 # 忽略所有 .env*.local 文件

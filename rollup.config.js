@@ -4,7 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import terser from '@rollup/plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
-// import del from 'rollup-plugin-delete';
+import clear from 'rollup-plugin-clear';
 // @ts-ignore
 import pkg from './package.json' assert { type: 'json' };
 import fs from 'node:fs';
@@ -45,7 +45,8 @@ const input = createInputObject(folders, srcPath);
 const esmConfig = (_plugins) => {
   return {
     watch: {
-      include: 'src/**',
+      clearScreen: false,
+      include: 'src/**/*',
     },
     input: input,
     external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router'],
@@ -67,6 +68,7 @@ const esmConfig = (_plugins) => {
 const umdConfig = (_plugins) => {
   return {
     watch: {
+      clearScreen: false,
       include: 'src/**',
     },
     input: 'src/index.ts',
@@ -97,6 +99,10 @@ export default () => {
           replacement: path.resolve(process.cwd(), 'src/'),
         },
       ],
+    }),
+    clear({
+      targets: ['dist/*'], // 将要清空的目录或文件
+      force: true, // 强制清空目标，即使它们不是由 Rollup 创建的
     }),
     json(),
     nodeResolve(),

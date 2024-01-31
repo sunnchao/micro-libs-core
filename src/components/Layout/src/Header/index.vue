@@ -1,7 +1,8 @@
+<script setup lang="ts">
+  import { LayoutHeader } from 'ant-design-vue';
+</script>
 <template>
-  <div> Header </div>
+  <a-layout-header fixed> Header </a-layout-header>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped></style>

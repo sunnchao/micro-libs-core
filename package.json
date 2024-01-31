@@ -6,8 +6,9 @@
   "types": "block-libs.d.ts",
   "typings": "block-libs.d.ts",
   "scripts": {
-    "dev": "rollup -c -w ",
-    "build": "vite build",
+    "dev": "vite",
+    "build:watch": "rollup -c ./rollup.config.js -w",
+    "build": "npm run clean && rollup -c ./rollup.config.js",
     "clean": "rimraf ./dist"
   },
   "keywords": [],
@@ -31,6 +32,7 @@
     "prettier": "^3.1.1",
     "rimraf": "^5.0.5",
     "rollup": "^4.9.5",
+    "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-css-only": "^4.5.2",
     "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-postcss": "^4.0.2",
@@ -66,7 +68,7 @@
       "types": "./dist/components/index.d.ts",
       "require": "./dist/index.umd.js"
     },
-    "./utils": {
+    "./dist/utils": {
       "import": "./dist/utils/index.esm.js",
       "types": "./dist/utils/index.d.ts",
       "require": "./dist/index.umd.js"
@@ -78,6 +80,7 @@
       "import": "./dist/index.umd.js",
       "types": "./dist/index.d.ts"
     },
+    "./src/*": {},
     "./package.json": "./package.json"
   }
 }

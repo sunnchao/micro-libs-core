@@ -1,7 +1,8 @@
+<script setup lang="ts">
+  import { LayoutContent } from 'ant-design-vue';
+</script>
 <template>
-  <div> Content </div>
+  <a-layout-content> Content 21</a-layout-content>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped></style>

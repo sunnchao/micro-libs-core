@@ -1,7 +1,9 @@
+<script setup lang="ts">
+  import { ref } from 'vue';
+  const sideRef = ref();
+</script>
 <template>
-  <div> Sider </div>
+  <a-layout-sider collapsible :width="getMenuWidth" ref="sideRef"> Sider1 </a-layout-sider>
 </template>
-
-<script setup lang="ts"></script>
 
 <style scoped></style>
