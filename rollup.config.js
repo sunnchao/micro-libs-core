@@ -1,19 +1,26 @@
-// import { RollupOptions } from 'rollup';
-import resolve from '@rollup/plugin-node-resolve';
+// import { Plugin, RollupOptions } from 'rollup';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import terser from '@rollup/plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
-import del from 'rollup-plugin-delete';
+// import del from 'rollup-plugin-delete';
+// @ts-ignore
 import pkg from './package.json' assert { type: 'json' };
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
+
+import babel from '@rollup/plugin-babel';
+import alias from '@rollup/plugin-alias';
+import vue from 'rollup-plugin-vue';
+// 处理css文件插件
+import postcss from 'rollup-plugin-postcss';
+// 处理JSX
+import vueJsx from '@vitejs/plugin-vue-jsx';
 
 // 自动读取src 子目录
 function getFolders(srcPath) {
-  return fs
-    .readdirSync(srcPath)
-    .filter((file) => fs.statSync(path.join(srcPath, file)).isDirectory());
+  return fs.readdirSync(srcPath).filter((file) => fs.statSync(path.join(srcPath, file)).isDirectory());
 }
 
 function createInputObject(folders, srcPath) {
@@ -35,56 +42,78 @@ const folders = getFolders(srcPath);
 const input = createInputObject(folders, srcPath);
 
 // ESM 配置
-const esmConfig = {
-  watch: {
-    include: 'src/**',
-  },
-  input: input,
-  external: Object.keys(pkg.dependencies),
-  output: {
-    dir: 'dist',
-    format: 'esm',
-    sourcemap: true,
-    entryFileNames: '[name]/index.esm.js',
-  },
-  plugins: [
-    typescript(),
-    terser({
-      ecma: 6,
-      mangle: {
-        toplevel: true,
-      },
-      compress: {
-        passes: 2,
-      },
-    }),
-  ],
+const esmConfig = (_plugins) => {
+  return {
+    watch: {
+      include: 'src/**',
+    },
+    input: input,
+    external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router'],
+    output: {
+      dir: 'dist',
+      format: 'esm',
+      sourcemap: true,
+      entryFileNames: '[name]/index.esm.js',
+    },
+    plugins: _plugins,
+    globals: {
+      vue: 'Vue',
+      'vue-router': 'vueRouter',
+    },
+  };
 };
 
 // UMD 配置
-const umdConfig = {
-  watch: {
-    include: 'src/**',
-  },
-  input: 'src/index.ts',
-  external: Object.keys(pkg.dependencies),
-  output: {
-    // file: 'dist/index.umd.js',
-    dir: 'dist',
-    format: 'umd',
-    name: 'BlockLib',
-    sourcemap: true,
-    globals: {
-      // 例如，如果你的库依赖于 Vue
-      vue: 'Vue',
-      'vue-router': 'VueRouter',
+const umdConfig = (_plugins) => {
+  return {
+    watch: {
+      include: 'src/**',
     },
-    entryFileNames: 'index.umd.js',
-  },
-  plugins: [
-    typescript(),
+    input: 'src/index.ts',
+    external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router'],
+    output: {
+      // file: 'dist/index.umd.js',
+      dir: 'dist',
+      format: 'umd',
+      name: 'BlockLib',
+      sourcemap: true,
+      entryFileNames: 'index.umd.js',
+    },
+    plugins: _plugins,
+    globals: {
+      vue: 'Vue',
+      'vue-router': 'vueRouter',
+    },
+    exports: 'named',
+  };
+};
+
+export default () => {
+  const _plugins = [
+    alias({
+      entries: [
+        {
+          find: '@/',
+          replacement: path.resolve(process.cwd(), 'src/'),
+        },
+      ],
+    }),
+    json(),
+    nodeResolve(),
+    vue(),
+    commonjs(),
+    postcss(),
+    vueJsx(),
+    typescript({
+      tsconfigOverride: {
+        compilerOptions: { declaration: true },
+      },
+    }),
+    babel({
+      babelHelpers: 'bundled',
+    }),
     terser({
-      ecma: 6,
+      ecma: 2020,
       mangle: {
         toplevel: true,
       },
@@ -92,67 +121,7 @@ const umdConfig = {
         passes: 2,
       },
     }),
-  ],
+  ];
+
+  return [esmConfig(_plugins), umdConfig(_plugins)];
 };
-
-export default [esmConfig, umdConfig];
-
-// export default () => {
-//   return {
-//     watch: {
-//       include: 'src/**',
-//     },
-//     external: Object.keys(pkg.dependencies),
-//     input: input,
-//     output: [
-//       {
-//         format: 'esm',
-//         dir: 'dist',
-//         // file: pkg.module,
-//         globals: {
-//           vue: 'Vue',
-//           vite: 'Vite',
-//           'vue-router': 'VueRouter',
-//         },
-//         // 目录
-//         entryFileNames: (chunkInfo) => {
-//           // 使用 chunkInfo.name 来决定不同入口点的输出文件名
-//           if (chunkInfo.name) {
-//             return `${chunkInfo.name}/index.esm.js`;
-//           }
-//           return '[name].js'; // 默认情况
-//         },
-//       },
-//       // {
-//       //   format: 'umd',
-//       //   exports: 'named',
-//       //   name: 'block-libs',
-//       //   dir: 'dist',
-//       // },
-//     ],
-//     plugins: [
-//       del({ targets: 'dist/*' }),
-//       json(),
-//       resolve(),
-//       commonjs(),
-//       typescript({
-//         // useTsconfigDeclarationDir: true,
-//         // tsconfigOverride: {
-//         //   compilerOptions: {
-//         //     declaration: true,
-//         //     declarationDir: 'dist/types',
-//         //   },
-//         // },
-//       }),
-//       terser({
-//         ecma: 6,
-//         mangle: {
-//           toplevel: true,
-//         },
-//         compress: {
-//           passes: 2,
-//         },
-//       }),
-//     ],
-//   };
-// };

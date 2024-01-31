@@ -1,5 +1,5 @@
 <template>
-  <h1> Name 1.0.2 </h1>
+  <div> Content </div>
 </template>
 
 <script setup lang="ts"></script>

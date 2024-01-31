@@ -1,3 +1,5 @@
+import type { App, Plugin, DefineComponent, Component } from 'vue';
+
 /**
  * 读取环境变量
  * @param envConf 环境变量配置
@@ -29,6 +31,20 @@ export function wrapperEnv(envConf: Recordable): ViteEnv {
   }
   return ret;
 }
+
+export const withInstall = <T extends DefineComponent | Component>(
+  component: T,
+  alias?: string,
+) => {
+  const comp = component as any;
+  comp.install = (app: App) => {
+    app.component(comp.name || comp.displayName, component);
+    if (alias) {
+      app.config.globalProperties[alias] = component;
+    }
+  };
+  return component as T & Plugin;
+};
 
 // 测试函数
 export function test() {
