@@ -13,25 +13,25 @@ export type Writable<T> = {
   -readonly [P in keyof T]: T[P];
 };
 
-declare type Nullable<T> = T | null;
-declare type NonNullable<T> = T extends null | undefined ? never : T;
-declare type ReadonlyRecordable<T = any> = {
+export declare type Nullable<T> = T | null;
+export declare type NonNullable<T> = T extends null | undefined ? never : T;
+export declare type ReadonlyRecordable<T = any> = {
   readonly [key: string]: T;
 };
-declare type Indexable<T = any> = {
+export declare type Indexable<T = any> = {
   [key: string]: T;
 };
-declare type DeepPartial<T> = {
+export declare type DeepPartial<T> = {
   [P in keyof T]?: DeepPartial<T[P]>;
 };
-declare type TimeoutHandle = ReturnType<typeof setTimeout>;
-declare type IntervalHandle = ReturnType<typeof setInterval>;
+export declare type TimeoutHandle = ReturnType<typeof setTimeout>;
+export declare type IntervalHandle = ReturnType<typeof setInterval>;
 
-declare interface ChangeEvent extends Event {
+export declare interface ChangeEvent extends Event {
   target: HTMLInputElement;
 }
 
-declare interface WheelEvent {
+export declare interface WheelEvent {
   path?: EventTarget[];
 }
 
@@ -39,9 +39,9 @@ declare interface WheelEvent {
 //   __: unknown;
 // }
 
-declare function parseInt(s: string | number, radix?: number): number;
+export declare function parseInt(s: string | number, radix?: number): number;
 
-declare function parseFloat(string: string | number): number;
+export declare function parseFloat(string: string | number): number;
 // }
 
 export interface MicroAppDataFunction {
@@ -65,11 +65,7 @@ export interface MicroAppDataFunction {
    * @returns
    */
   // addDataListener: (listener: (data: Recordable) => void, autoTrigger?: boolean) => void;
-  addDataListener: (
-    appName: string,
-    listener: (data: Recordable) => void,
-    autoTrigger?: boolean,
-  ) => void;
+  addDataListener: (appName: string, listener: (data: Recordable) => void, autoTrigger?: boolean) => void;
 
   removeDataListener: (appName: string, listener: (data: Recordable) => void) => void;
 

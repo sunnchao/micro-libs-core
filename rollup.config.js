@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
 import terser from '@rollup/plugin-terser';
 import typescript from 'rollup-plugin-typescript2';
+// import typescript from '@rollup/plugin-typescript';
 import clear from 'rollup-plugin-clear';
 // @ts-ignore
 import pkg from './package.json' assert { type: 'json' };
@@ -17,6 +18,8 @@ import vue from 'rollup-plugin-vue';
 import postcss from 'rollup-plugin-postcss';
 // 处理JSX
 import vueJsx from '@vitejs/plugin-vue-jsx';
+
+import copy from 'rollup-plugin-copy';
 
 // 自动读取src 子目录
 function getFolders(srcPath) {
@@ -46,7 +49,7 @@ const esmConfig = (_plugins) => {
   return {
     watch: {
       clearScreen: false,
-      include: 'src/**/*',
+      include: 'src/**',
     },
     input: input,
     external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router'],
@@ -55,6 +58,7 @@ const esmConfig = (_plugins) => {
       format: 'esm',
       sourcemap: true,
       entryFileNames: '[name]/index.esm.js',
+      exports: 'auto',
     },
     plugins: _plugins,
     globals: {
@@ -95,8 +99,12 @@ export default () => {
     alias({
       entries: [
         {
-          find: '@/',
+          find: '/@/',
           replacement: path.resolve(process.cwd(), 'src/'),
+        },
+        {
+          find: '/#/',
+          replacement: path.resolve(process.cwd(), 'types/'),
         },
       ],
     }),
@@ -105,19 +113,24 @@ export default () => {
       force: true, // 强制清空目标，即使它们不是由 Rollup 创建的
     }),
     json(),
-    nodeResolve(),
     vue(),
     commonjs(),
     postcss(),
     vueJsx(),
     typescript({
       tsconfigOverride: {
-        compilerOptions: { declaration: true },
+        compilerOptions: { declaration: true, declarationDir: 'dist', baseUrl: './src' },
       },
+      useTsconfigDeclarationDir: true,
+      check: false,
+      // exclude: [path.resolve(process.cwd(), 'utils/')],
+      // declarationDir: 'dist/types',
     }),
     babel({
       babelHelpers: 'bundled',
     }),
+    nodeResolve(),
+
     terser({
       ecma: 2020,
       mangle: {
@@ -127,7 +140,17 @@ export default () => {
         passes: 2,
       },
     }),
+    // copy({
+    //   targets: [
+    //     {
+    //       src: 'dist/src/**/*.d.ts', //  源类型文件路径，使用glob模式匹配
+    //       dest: 'dist', //  目标目录
+    //     },
+    //   ],
+    //   flatten: false,
+    // }),
   ];
 
-  return [esmConfig(_plugins), umdConfig(_plugins)];
+  // umdConfig(_plugins)
+  return [esmConfig(_plugins)];
 };
