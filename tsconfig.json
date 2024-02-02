@@ -12,7 +12,7 @@
     "jsxFragmentFactory": "Fragment",
     "baseUrl": ".",
     "paths": {
-      "/@/*": ["src/*"],
+      "@/*": ["src/*"],
       "/#/*": ["types/*"],
     },
     "noImplicitAny": false,
@@ -20,11 +20,10 @@
     "removeComments": true,
     "outDir": "dist",
     "declaration": true,
+    "declarationDir": "dist",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "lib": ["ESNext", "DOM", "DOM.Iterable"],
-    "types": ["vite/client", "node"],
-    "typeRoots": ["./node_modules/@types/", "./types"],
   },
   "include": [
     //    "src/components/**/*.vue",

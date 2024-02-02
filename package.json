@@ -1,7 +1,7 @@
 {
   "name": "block-libs",
   "version": "1.0.8",
-  "main": "dist/index.js",
+  "main": "dist/src/index.umd.js",
   "type": "module",
   "types": "block-libs.d.ts",
   "typings": "block-libs.d.ts",
@@ -50,11 +50,6 @@
     "block-libs.d.ts",
     "package.json"
   ],
-  "sideEffects": [
-    "*.vue",
-    "*.md",
-    "dist/**/*"
-  ],
   "dependencies": {
     "ant-design-vue": "^3.2.20",
     "crypto-js": "^4.2.0",
@@ -62,29 +57,31 @@
   },
   "description": "",
   "exports": {
-    "./dist/router": {
-      "import": "./dist/router/index.esm.js",
-      "types": "./dist/types/src/router/index.d.ts",
-      "require": "./dist/index.umd.js"
+    "./dist/src/router": {
+      "import": "./dist/src/router/index.esm.js",
+      "types": "./dist/src/router/index.d.ts",
+      "require": "./dist/src/index.umd.js"
     },
-    "./dist/components": {
-      "import": "./dist/components/index.esm.js",
-      "types": "./dist/types/src/components/index.d.ts",
-      "require": "./dist/index.umd.js"
+    "./dist/src/components": {
+      "import": "./dist/src/components/index.esm.js",
+      "types": "./dist/src/components/index.d.ts",
+      "require": "./dist/src/index.umd.js"
     },
-    "./dist/utils": {
-      "import": "./dist/utils/index.esm.js",
-      "types": "./dist/types/src/utils/index.d.ts",
-      "require": "./dist/index.umd.js"
+    "./dist/src/utils": {
+      "import": "./dist/src/utils/index.esm.js",
+      "types": "./dist/src/utils/index.d.ts",
+      "require": "./dist/src/index.umd.js"
     },
     "./types": {
       "types": "./types"
     },
     ".": {
-      "import": "./dist/index.umd.js",
-      "types": "./dist/types/src/index.d.ts"
+      "import": "./dist/src/index.umd.js",
+      "types": "./dist/src/index.d.ts"
     },
-    "./src/*": {},
+    "./block-libs": {
+      "types": "./block-libs.d.ts"
+    },
     "./package.json": "./package.json"
   }
 }

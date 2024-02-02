@@ -52,18 +52,17 @@ const esmConfig = (_plugins) => {
       include: 'src/**',
     },
     input: input,
-    external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router'],
+    external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router', 'pinia'],
     output: {
       dir: 'dist',
       format: 'esm',
-      sourcemap: true,
-      entryFileNames: '[name]/index.esm.js',
-      exports: 'auto',
+      entryFileNames: 'src/[name]/index.esm.js',
     },
     plugins: _plugins,
     globals: {
       vue: 'Vue',
       'vue-router': 'vueRouter',
+      pinia: 'Pinia',
     },
   };
 };
@@ -76,30 +75,34 @@ const umdConfig = (_plugins) => {
       include: 'src/**',
     },
     input: 'src/index.ts',
-    external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router'],
+    external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router', 'pinia'],
     output: {
       // file: 'dist/index.umd.js',
       dir: 'dist',
       format: 'umd',
       name: 'BlockLib',
-      sourcemap: true,
-      entryFileNames: 'index.umd.js',
+      entryFileNames: 'src/index.umd.js',
     },
     plugins: _plugins,
     globals: {
       vue: 'Vue',
       'vue-router': 'vueRouter',
+      pinia: 'Pinia',
     },
-    exports: 'named',
   };
 };
 
 export default () => {
   const _plugins = [
+    // clear({
+    //   targets: ['esm/**/*', 'umd/**/*'], // 将要清空的目录或文件
+    //   force: true, // 强制清空目标，即使它们不是由 Rollup 创建的
+    // }),
+
     alias({
       entries: [
         {
-          find: '/@/',
+          find: '@/',
           replacement: path.resolve(process.cwd(), 'src/'),
         },
         {
@@ -108,28 +111,26 @@ export default () => {
         },
       ],
     }),
-    clear({
-      targets: ['dist/*'], // 将要清空的目录或文件
-      force: true, // 强制清空目标，即使它们不是由 Rollup 创建的
-    }),
+
     json(),
+    nodeResolve(),
     vue(),
-    commonjs(),
-    postcss(),
+
     vueJsx(),
+    postcss(),
+    commonjs(),
+
     typescript({
       tsconfigOverride: {
-        compilerOptions: { declaration: true, declarationDir: 'dist', baseUrl: './src' },
+        compilerOptions: { declaration: true, declarationDir: 'dist' },
       },
+      exclude: ['src/utils/cache/**'],
       useTsconfigDeclarationDir: true,
       check: false,
-      // exclude: [path.resolve(process.cwd(), 'utils/')],
-      // declarationDir: 'dist/types',
     }),
     babel({
       babelHelpers: 'bundled',
     }),
-    nodeResolve(),
 
     terser({
       ecma: 2020,
@@ -143,14 +144,14 @@ export default () => {
     // copy({
     //   targets: [
     //     {
-    //       src: 'dist/src/**/*.d.ts', //  源类型文件路径，使用glob模式匹配
-    //       dest: 'dist', //  目标目录
+    //       src: 'dist/src/**/*.d.ts',
+    //       dest: 'dist',
     //     },
     //   ],
     //   flatten: false,
     // }),
   ];
 
-  // umdConfig(_plugins)
+  //, umdConfig(_plugins)
   return [esmConfig(_plugins)];
 };

@@ -1,3 +1,4 @@
-declare module 'block-libs/router' {
-  export * from './dist/router/index';
+import * as router from './dist/src/router';
+declare module 'block-libs/esm/router' {
+  export default router;
 }
