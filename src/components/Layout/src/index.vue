@@ -17,7 +17,7 @@
   import LayoutSider from './Sider/index.vue';
   import LayoutFooter from './Footer/index.vue';
 
-  import { useDesign } from '@/hooks/web/useDesign';
+  import { useDesign } from '/@/hooks/web/useDesign';
   const { prefixCls } = useDesign();
 
   defineOptions({

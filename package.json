@@ -72,6 +72,16 @@
       "types": "./dist/src/utils/index.d.ts",
       "require": "./dist/src/index.umd.js"
     },
+    "./dist/src/hooks/": {
+      "import": "./dist/src/hooks/index.esm.js",
+      "types": "./dist/src/hooks/index.d.ts",
+      "require": "./dist/src/index.umd.js"
+    },
+    "./dist/src/store/": {
+      "import": "./dist/src/store/index.esm.js",
+      "types": "./dist/src/store/index.d.ts",
+      "require": "./dist/src/index.umd.js"
+    },
     "./types": {
       "types": "./types"
     },

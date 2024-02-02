@@ -1,5 +1,5 @@
 import type { App, Plugin, DefineComponent, Component } from 'vue';
-import { isObject } from '@/utils/is';
+import { isObject } from '/@/utils/is';
 
 export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
   let key: string;

@@ -102,7 +102,7 @@ export default () => {
     alias({
       entries: [
         {
-          find: '@/',
+          find: '/@/',
           replacement: path.resolve(process.cwd(), 'src/'),
         },
         {
@@ -124,9 +124,9 @@ export default () => {
       tsconfigOverride: {
         compilerOptions: { declaration: true, declarationDir: 'dist' },
       },
-      exclude: ['src/utils/cache/**'],
+      // exclude: ['src/utils/cache/**'],
       useTsconfigDeclarationDir: true,
-      check: false,
+      // check: false,
     }),
     babel({
       babelHelpers: 'bundled',

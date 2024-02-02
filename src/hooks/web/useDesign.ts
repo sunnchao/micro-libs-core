@@ -1,4 +1,4 @@
-import { useAppProviderContext } from '@/components/Application';
+import { useAppProviderContext } from '/@/components/Application';
 import pkg from '../../../package.json';
 // import { computed } from 'vue';
 // import { lowerFirst } from 'lodash-es';

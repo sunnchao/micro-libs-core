@@ -12,7 +12,7 @@
     "jsxFragmentFactory": "Fragment",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      "/@/*": ["src/*"],
       "/#/*": ["types/*"],
     },
     "noImplicitAny": false,

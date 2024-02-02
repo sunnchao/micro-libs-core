@@ -2,7 +2,7 @@ import { createRouter as _createRouter, createWebHashHistory } from 'vue-router'
 import type { Router, RouterOptions } from 'vue-router';
 
 let router: Router;
-const WHITE_NAME_LIST = [];
+const WHITE_NAME_LIST: string[] = [];
 export const getRouter = (options: RouterOptions, whiteList?: []): Router => {
   const {
     history = createWebHashHistory(),

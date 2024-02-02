@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { ref } from 'vue';
-  import { useMenuSetting } from '@/hooks/setting/useMenuSetting';
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   const sideRef = ref();
 
   const { getCollapsed, getMenuWidth, getSplit, getMenuTheme, getRealWidth, getMenuHidden, getMenuFixed, getIsMixMode, toggleCollapsed } = useMenuSetting();
