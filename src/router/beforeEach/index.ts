@@ -23,5 +23,5 @@ export const useBeforeEach = (router: Router) => {
 };
 
 const getToken = () => {
-  return localStorage.getItem('token') ?? undefined;
+  return sessionStorage.getItem('token') ?? undefined;
 };

@@ -1,5 +1,5 @@
 /// <reference types="vite/client" />
-declare interface ViteEnv {
+export declare interface ViteEnv {
   VITE_PORT: number;
   VITE_USE_MOCK: boolean;
   VITE_USE_PWA: boolean;
@@ -16,14 +16,19 @@ declare interface ViteEnv {
   VITE_GENERATE_UI: string;
   VITE_GLOB_API_URL_PREFIX: string;
   VITE_GLOB_API_BASE_URL: string;
+  VITE_APP_PORT: number;
+  VITE_APP_BASE_URL: string;
 }
 
-interface ImportMetaEnv extends ViteEnv {
+export interface ImportMetaEnv extends ViteEnv {
   __: unknown;
 }
 
-interface ImportMeta {
+export interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
 
-declare type Recordable<T = any> = Record<string, T>;
+export declare type Recordable<T = any> = Record<string, T>;
+
+export default {};
+export {};

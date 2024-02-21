@@ -1,7 +1,7 @@
 {
   "name": "block-libs",
   "version": "1.0.8",
-  "main": "dist/src/index.umd.js",
+  "main": "dist/index.umd.js",
   "type": "module",
   "types": "block-libs.d.ts",
   "typings": "block-libs.d.ts",
@@ -57,41 +57,39 @@
   },
   "description": "",
   "exports": {
-    "./dist/src/router": {
-      "import": "./dist/src/router/index.esm.js",
-      "types": "./dist/src/router/index.d.ts",
-      "require": "./dist/src/index.umd.js"
-    },
-    "./dist/src/components": {
-      "import": "./dist/src/components/index.esm.js",
-      "types": "./dist/src/components/index.d.ts",
-      "require": "./dist/src/index.umd.js"
-    },
-    "./dist/src/utils": {
-      "import": "./dist/src/utils/index.esm.js",
-      "types": "./dist/src/utils/index.d.ts",
-      "require": "./dist/src/index.umd.js"
-    },
-    "./dist/src/hooks/": {
-      "import": "./dist/src/hooks/index.esm.js",
-      "types": "./dist/src/hooks/index.d.ts",
-      "require": "./dist/src/index.umd.js"
-    },
-    "./dist/src/store/": {
-      "import": "./dist/src/store/index.esm.js",
-      "types": "./dist/src/store/index.d.ts",
-      "require": "./dist/src/index.umd.js"
-    },
-    "./types": {
-      "types": "./types"
-    },
     ".": {
-      "import": "./dist/src/index.umd.js",
-      "types": "./dist/src/index.d.ts"
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.umd.js"
     },
-    "./block-libs": {
-      "types": "./block-libs.d.ts"
+    "./dist/utils": {
+      "import": "./dist/utils/index.esm.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/utils/index.d.ts"
     },
-    "./package.json": "./package.json"
+    "./dist/components": {
+      "import": "./dist/components/index.esm.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/components/index.d.ts"
+    },
+    "./dist/hooks/*": {
+      "import": "./dist/hooks/index.esm.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/hooks/index.d.ts"
+    },
+    "./dist/apis": {
+      "import": "./dist/apis/index.esm.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/apis/index.d.ts"
+    },
+    "./dist/router": {
+      "import": "./dist/router/index.esm.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/router/index.d.ts"
+    },
+    "./dist/store": {
+      "import": "./dist/store/index.esm.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/store/index.d.ts"
+    }
   }
 }

@@ -1,5 +1,6 @@
 import type { App, Plugin, DefineComponent, Component } from 'vue';
 import { isObject } from '/@/utils/is';
+import { ViteEnv, Recordable } from '/#/env';
 
 export function deepMerge<T = any>(src: any = {}, target: any = {}): T {
   let key: string;

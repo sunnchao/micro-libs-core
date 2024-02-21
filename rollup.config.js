@@ -56,7 +56,13 @@ const esmConfig = (_plugins) => {
     output: {
       dir: 'dist',
       format: 'esm',
-      entryFileNames: 'src/[name]/index.esm.js',
+      entryFileNames: (file) => {
+        if (file.type === 'chunk') {
+          return `${file.name}/index.esm.js`;
+        } else {
+          console.log('file', file);
+        }
+      },
     },
     plugins: _plugins,
     globals: {
@@ -81,7 +87,7 @@ const umdConfig = (_plugins) => {
       dir: 'dist',
       format: 'umd',
       name: 'BlockLib',
-      entryFileNames: 'src/index.umd.js',
+      entryFileNames: 'index.umd.js',
     },
     plugins: _plugins,
     globals: {
@@ -94,10 +100,10 @@ const umdConfig = (_plugins) => {
 
 export default () => {
   const _plugins = [
-    // clear({
-    //   targets: ['esm/**/*', 'umd/**/*'], // 将要清空的目录或文件
-    //   force: true, // 强制清空目标，即使它们不是由 Rollup 创建的
-    // }),
+    clear({
+      targets: ['dist'], // 将要清空的目录或文件
+      force: true, // 强制清空目标，即使它们不是由 Rollup 创建的
+    }),
 
     alias({
       entries: [
@@ -128,9 +134,9 @@ export default () => {
       useTsconfigDeclarationDir: true,
       // check: false,
     }),
-    babel({
-      babelHelpers: 'bundled',
-    }),
+    // babel({
+    //   babelHelpers: 'bundled',
+    // }),
 
     terser({
       ecma: 2020,
@@ -153,5 +159,5 @@ export default () => {
   ];
 
   //, umdConfig(_plugins)
-  return [esmConfig(_plugins)];
+  return [esmConfig(_plugins), umdConfig(_plugins)];
 };
