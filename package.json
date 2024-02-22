@@ -90,6 +90,11 @@
       "import": "./dist/store/index.esm.js",
       "require": "./dist/index.umd.js",
       "types": "./dist/store/index.d.ts"
+    },
+    "./dist/enums": {
+      "import": "./dist/enums/index.esm.js",
+      "require": "./dist/index.umd.js",
+      "types": "./dist/enums/index.d.ts"
     }
   }
 }
