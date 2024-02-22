@@ -17,7 +17,7 @@ nginx
 Dockerfile
 
 .rollup.cache
-core
+#core
 
 esm
 umd
