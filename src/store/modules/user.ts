@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { store } from '/@/store';
 
 /**
  * @description User store
@@ -18,3 +19,7 @@ export const useUserStore = defineStore('user', {
     },
   },
 });
+
+export function useUserStoreWithOut() {
+  return useUserStore(store);
+}
