@@ -46,31 +46,53 @@ const input = createInputObject(folders, srcPath);
 
 // ESM 配置
 const esmConfig = (_plugins) => {
-  return {
-    watch: {
-      clearScreen: false,
-      include: 'src/**',
-    },
-    input: input,
-    external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router', 'pinia'],
-    output: {
-      dir: 'dist',
-      format: 'esm',
-      entryFileNames: (file) => {
-        if (file.type === 'chunk') {
-          return `${file.name}/index.esm.js`;
-        } else {
-          console.log('file', file);
-        }
+  const inputArr = Object.entries(input);
+  return inputArr.map((item) => {
+    return {
+      watch: {
+        clearScreen: false,
+        include: 'src/**',
       },
-    },
-    plugins: _plugins,
-    globals: {
-      vue: 'Vue',
-      'vue-router': 'vueRouter',
-      pinia: 'Pinia',
-    },
-  };
+      input: item[1],
+      external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router', 'pinia'],
+      output: {
+        file: `dist/${item[0]}/index.esm.js`,
+        format: 'esm',
+      },
+      plugins: _plugins,
+      globals: {
+        vue: 'Vue',
+        'vue-router': 'vueRouter',
+        pinia: 'Pinia',
+      },
+    };
+  });
+  // 保留以前的配置
+  // return {
+  //   watch: {
+  //     clearScreen: false,
+  //     include: 'src/**',
+  //   },
+  //   input: input,
+  //   external: [...Object.keys(pkg.dependencies), 'vue', 'vue-router', 'pinia'],
+  //   output: {
+  //     dir: 'dist',
+  //     format: 'esm',
+  //     entryFileNames: (file) => {
+  //       if (file.type === 'chunk') {
+  //         return `${file.name}/index.esm.js`;
+  //       } else {
+  //         console.log('file', file);
+  //       }
+  //     },
+  //   },
+  //   plugins: _plugins,
+  //   globals: {
+  //     vue: 'Vue',
+  //     'vue-router': 'vueRouter',
+  //     pinia: 'Pinia',
+  //   },
+  // };
 };
 
 // UMD 配置
@@ -159,5 +181,5 @@ export default () => {
   ];
 
   //, umdConfig(_plugins)
-  return [esmConfig(_plugins), umdConfig(_plugins)];
+  return [...esmConfig(_plugins), umdConfig(_plugins)];
 };
